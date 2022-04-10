@@ -1,0 +1,26 @@
+﻿@page "/login"
+@inject SignInManager SignInManager
+@inject NavigationManager NavigationManager
+<div class="card m-auto mt-5" style="width: 28rem;">
+    <div class="card-body">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" @bind='user.Account'>
+            <label for="floatingInput">账户</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" @bind='user.Password'>
+            <label for="floatingPassword">密码</label>
+        </div>
+        <button type="button" class="btn btn-primary mt-3 col-12" @onclick='LoginMethod'>登录</button>
+    </div>
+</div>
+@code {
+    private Data.View.UserInfo user = new();
+    public void LoginMethod()
+    {
+        if (SignInManager.Login(user))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

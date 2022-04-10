@@ -1,0 +1,70 @@
+﻿@using System.Reflection
+@using System.Collections.ObjectModel
+@inherits LayoutComponentBase
+@inject SignInManager SignInManager
+@inject NavigationManager NavigationManager
+<PageTitle>EasyVerify</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4" spanstyle="cursor:pointer">
+            <ul class="nav">
+                @if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href='' spanstyle="cursor:pointer" @onclick='e=>NavigationManager.NavigateTo("/login")'>登录</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href='' spanstyle="cursor:pointer" @onclick='e=>SignInManager.LogOut(SignInManager.CurrUser)'>退出登录</a>
+                    </li>
+                }
+                @*                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                    </li>*@
+            </ul>
+        </div>
+
+        @if (true)
+        {
+            var attribute = (Body!.Target as RouteView ?? new RouteView())?.RouteData?.PageType.CustomAttributes.FirstOrDefault(p =>
+            p.AttributeType == typeof(AdministratorsPageAttribute)
+            || p.AttributeType == typeof(OrdinaryPageAttribute)
+            || p.AttributeType == typeof(VisitorPageAttribute)
+            );
+            if (attribute != null)
+            {
+
+                switch (attribute.AttributeType.Name)
+                {
+                    case "AdministratorsPageAttribute":
+                        if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser) || SignInManager.CurrUser.UserLevel != UserLevel.Administrators)
+                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
+
+                        break;
+                    case "OrdinaryPageAttribute":
+                        if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser) || (SignInManager.CurrUser.UserLevel != UserLevel.OrdinaryUsers && SignInManager.CurrUser.UserLevel != UserLevel.Administrators))
+                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
+                        break;
+                    case "VisitorPageAttribute":
+                        break;
+                }
+            }
+        }
+
+
+        <article class="content px-4">
+            @Body
+        </article>
+
+    </main>
+</div>
+@code {
+
+}
