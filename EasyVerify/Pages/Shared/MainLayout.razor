@@ -45,12 +45,12 @@
                 {
                     case "AdministratorsPageAttribute":
                         if (!SignInManager.UserDict.ContainsKey(CurrUser) || CurrUser.UserLevel != UserLevel.Administrators)
-                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
+                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>() { { "CurrUser", CurrUser } });
 
                         break;
                     case "OrdinaryPageAttribute":
                         if (!SignInManager.UserDict.ContainsKey(CurrUser) || (CurrUser.UserLevel != UserLevel.OrdinaryUsers && CurrUser.UserLevel != UserLevel.Administrators))
-                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
+                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>() { { "CurrUser", CurrUser } });
                         break;
                     case "VisitorPageAttribute":
                         break;

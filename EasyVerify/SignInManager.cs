@@ -20,7 +20,6 @@ namespace EasyVerify
             if (u != null)
             {
                 user.UserLevel = u.UserLevel;
-                user.ExpirationTime = u.ExpirationTime;
                 user.Frozen = u.Frozen;
                 user.Account = u.Account;
                 user.Password = u.Password;

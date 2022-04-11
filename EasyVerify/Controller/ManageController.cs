@@ -30,10 +30,10 @@ namespace EasyVerify.Controller
             return new
             {
                 msg = "ok",
-                result = await fsql.Update<Data.Models.UserInfo>()
-                .Set(p => p.ExpirationTime, dateTime)
-                .Where(p => p.Id == id)
-                .ExecuteAffrowsAsync()
+                //result = await fsql.Update<Data.Models.UserInfo>()
+                //.Set(p => p.ExpirationTime, dateTime)
+                //.Where(p => p.Id == id)
+                //.ExecuteAffrowsAsync()
             };
         }
         public async Task<object> DelUser(int id)
