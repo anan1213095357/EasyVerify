@@ -16,12 +16,14 @@ namespace EasyVerify
         
         public bool Login(Data.View.UserInfo user)
         {
-            CurrUser = user;
             var u = fsql.Select<Data.Models.UserInfo>().Where(p => p.Account == user.Account && p.Password == user.Password).First();
             if (u != null)
             {
-                CurrUser.UserLevel = u.UserLevel;
-                CurrUser.ExpirationTime = u.ExpirationTime;
+                user.UserLevel = u.UserLevel;
+                user.ExpirationTime = u.ExpirationTime;
+                user.Frozen = u.Frozen;
+                user.Account = u.Account;
+                user.Password = u.Password;
                 if (UserDict.ContainsKey(user))
                     UserDict.Remove(user);
                 UserDict.Add(user, DateTime.Now.AddHours(3));
@@ -32,7 +34,7 @@ namespace EasyVerify
         public bool LogOut(Data.View.UserInfo user)
         {
             UserDict.Remove(user);
-            CurrUser = new();
+            user = null;
             return true;
         }
 

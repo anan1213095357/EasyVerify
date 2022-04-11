@@ -8,6 +8,7 @@ namespace EasyVerify.Data.View
     public class UserInfo : INotifyPropertyChanged
     {
         public int Id { get; set; }
+        public int EquipmentId { get; set; }
         private string _name;
         public string Name
         {

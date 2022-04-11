@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/manager"
 @attribute [AdministratorsPage]
 <table class="table">
     <thead>
@@ -28,9 +28,10 @@
 
 
 @if (showModal)
-{    <EditUserInfoComponent UserInfo='viewUser' Close='e=>showModal=false' />
+{
+    <EditUserInfoComponent UserInfo='viewUser' Close='e=>showModal=false' />
 }
 @code {
     bool showModal = false;
-    Data.View.UserInfo viewUser = new();
+    public Data.View.UserInfo viewUser { get; set; }
 }

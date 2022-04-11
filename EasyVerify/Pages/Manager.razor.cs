@@ -26,7 +26,8 @@ namespace EasyVerify.Pages
                        UserLevel = UserInfo.UserLevel,
                        MachineCode = Equipment.MachineCode,
                        ExpirationTime = Equipment.ExpirationTime,
-                       Phone = UserInfo.Phone
+                       Phone = UserInfo.Phone,
+                       EquipmentId = Equipment.Id
                    });
 
                 userInfos.ForEach(x =>

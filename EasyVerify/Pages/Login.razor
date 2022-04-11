@@ -15,7 +15,8 @@
     </div>
 </div>
 @code {
-    private Data.View.UserInfo user = new();
+    [Parameter]
+    public Data.View.UserInfo user { get; set; }
     public void LoginMethod()
     {
         if (SignInManager.Login(user))
