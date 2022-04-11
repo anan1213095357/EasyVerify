@@ -13,7 +13,7 @@ namespace EasyVerify
         }
 
         public Dictionary<Data.View.UserInfo, DateTime> UserDict { get; set; } = new();
-        public Data.View.UserInfo CurrUser { get; set; } = new();
+        
         public bool Login(Data.View.UserInfo user)
         {
             CurrUser = user;

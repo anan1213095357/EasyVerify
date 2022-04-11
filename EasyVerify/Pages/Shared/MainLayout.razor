@@ -13,7 +13,7 @@
     <main>
         <div class="top-row px-4" spanstyle="cursor:pointer">
             <ul class="nav">
-                @if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser))
+                @if (!SignInManager.UserDict.ContainsKey(CurrUser))
                 {
                     <li class="nav-item">
                         <a class="nav-link" href='' spanstyle="cursor:pointer" @onclick='e=>NavigationManager.NavigateTo("/login")'>登录</a>
@@ -22,7 +22,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link" href='' spanstyle="cursor:pointer" @onclick='e=>SignInManager.LogOut(SignInManager.CurrUser)'>退出登录</a>
+                        <a class="nav-link" href='' spanstyle="cursor:pointer" @onclick='e=>SignInManager.LogOut(CurrUser)'>退出登录</a>
                     </li>
                 }
                 @*                <li class="nav-item">
@@ -44,12 +44,12 @@
                 switch (attribute.AttributeType.Name)
                 {
                     case "AdministratorsPageAttribute":
-                        if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser) || SignInManager.CurrUser.UserLevel != UserLevel.Administrators)
+                        if (!SignInManager.UserDict.ContainsKey(CurrUser) || CurrUser.UserLevel != UserLevel.Administrators)
                             (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
 
                         break;
                     case "OrdinaryPageAttribute":
-                        if (!SignInManager.UserDict.ContainsKey(SignInManager.CurrUser) || (SignInManager.CurrUser.UserLevel != UserLevel.OrdinaryUsers && SignInManager.CurrUser.UserLevel != UserLevel.Administrators))
+                        if (!SignInManager.UserDict.ContainsKey(CurrUser) || (CurrUser.UserLevel != UserLevel.OrdinaryUsers && CurrUser.UserLevel != UserLevel.Administrators))
                             (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>());
                         break;
                     case "VisitorPageAttribute":
@@ -66,5 +66,5 @@
     </main>
 </div>
 @code {
-
+    public Data.View.UserInfo CurrUser { get; set; } = new();
 }

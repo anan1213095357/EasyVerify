@@ -1,0 +1,58 @@
+﻿<div class="modal-backdrop fade show"></div>
+<div class="modal fade show" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog" style="width:38rem">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑用户设备</h5>
+                    <button type="button" class="btn-close" @onclick='async e=>await Close.InvokeAsync()'></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="input-group w-50 p-1">
+                                <span class="input-group-text">账户</span>
+                                <input type="text" class="form-control" @bind="UserInfo.Account" readonly>
+                            </div>
+
+                            <div class="input-group w-50 p-1">
+                                <span class="input-group-text">密码</span>
+                                <input type="text" class="form-control" @bind="UserInfo.Password">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group w-50 p-1">
+                                <label class="input-group-text">冻结</label>
+                                <select class="form-select" @bind="UserInfo.Frozen">
+                                    <option value="0" selected>解冻该用户</option>
+                                    <option value="1">冻结该用户</option>
+                                </select>
+                            </div>
+                            <div class="input-group w-50 p-1">
+                                <span class="input-group-text">到期</span>
+                                <input type="text" class="form-control" @bind="UserInfo.ExpirationTime">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group p-1">
+                                <span class="input-group-text">机器码</span>
+                                <input type="text" class="form-control" @bind="UserInfo.MachineCode">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public Data.View.UserInfo UserInfo { get; set; }
+
+    [Parameter]
+    public EventCallback Close { get; set; }
+}

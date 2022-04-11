@@ -1,0 +1,36 @@
+﻿@page "/user"
+@attribute [OrdinaryPage]
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Account</th>
+            <th scope="col">Name</th>
+            <th scope="col">ExpirationTime</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in userInfos)
+        {
+            <tr @onclick='e=>
+                    {
+                        showModal = true;
+                        viewUser = user;
+                    }'>
+                <th scope="row">@user.Id</th>
+                <td>@user.Account </td>
+                <td>@user.Name</td>
+                <td>@user.ExpirationTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (showModal)
+{    <EditUserInfoComponent UserInfo='viewUser' Close='e=>showModal=false' />
+}
+@code {
+    bool showModal = false;
+    Data.View.UserInfo viewUser = new();
+}
