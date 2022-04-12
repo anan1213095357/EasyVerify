@@ -40,20 +40,25 @@
             );
             if (attribute != null)
             {
+                var RouteView = (Body!.Target as RouteView ?? new RouteView());
+                var RouteData = new RouteData(typeof(Login), new Dictionary<string, object>() { { "CurrUser", CurrUser } });
 
                 switch (attribute.AttributeType.Name)
                 {
                     case "AdministratorsPageAttribute":
                         if (!SignInManager.UserDict.ContainsKey(CurrUser) || CurrUser.UserLevel != UserLevel.Administrators)
-                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>() { { "CurrUser", CurrUser } });
+                            RouteView.RouteData = RouteData;
 
                         break;
+
                     case "OrdinaryPageAttribute":
                         if (!SignInManager.UserDict.ContainsKey(CurrUser) || (CurrUser.UserLevel != UserLevel.OrdinaryUsers && CurrUser.UserLevel != UserLevel.Administrators))
-                            (Body!.Target as RouteView ?? new RouteView()).RouteData = new RouteData(typeof(Login), new Dictionary<string, object>() { { "CurrUser", CurrUser } });
+                            RouteView.RouteData = RouteData;
                         break;
+
                     case "VisitorPageAttribute":
                         break;
+
                 }
             }
         }
@@ -66,5 +71,5 @@
     </main>
 </div>
 @code {
-    public Data.View.UserInfo CurrUser { get; set; } = new();
+    public Data.View.UserInfo CurrUser { get; set; } = new() { UserLevel = UserLevel.Visitor };
 }
